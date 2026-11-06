@@ -15,6 +15,7 @@ pub const UPDATE_APP: craft_update::app::App = craft_update::app::App {
 };
 
 pub mod a11y;
+pub mod assistant;
 pub mod bidi;
 pub mod canvas;
 pub mod cjk;
@@ -748,6 +749,9 @@ pub struct FigApp {
     field_focus: bool,
     /// A panel's width changed and isn't kept in the preferences yet (its edge is being dragged).
     panels_unsaved: bool,
+    /// The AI Assistant pane (View > Panels > AI Assistant) and whether it is shown.
+    pub assistant: assistant::Assistant,
+    pub assistant_open: bool,
     /// Control-channel requests waiting for the next frame.
     pub control_queue: Vec<ControlRequest>,
     /// Input events from the control channel (`ui.input`) for the next frame's raw input.

@@ -333,6 +333,7 @@ pub fn specs() -> Vec<CommandSpec> {
             ok()
         }),
         spec!("view.layers", "Layers panel", "{}", false, |s, _| ui(s, "panel.layers")),
+        spec!("view.assistant", "AI Assistant pane", "{}", false, |s, _| ui(s, "panel.assistant")),
         spec!("view.assets", "Assets panel", "{}", false, |s, _| ui(s, "panel.assets")),
         spec!("view.design", "Design panel", "{}", false, |s, _| ui(s, "panel.design")),
         spec!("view.prototype", "Prototype panel", "{}", false, |s, _| ui(s, "panel.prototype")),

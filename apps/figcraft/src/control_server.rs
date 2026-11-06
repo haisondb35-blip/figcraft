@@ -113,6 +113,11 @@ pub fn start(port: u16, busy: Duration, queue: Queue, ctx: CtxSlot, events: Arc<
         }
     };
     eprintln!("FigCraft control server listening on 127.0.0.1:{port}");
+    serve_listener(listener, queue, ctx, events);
+}
+
+/// Serves the control protocol on `listener`, its requests going to `queue`.
+fn serve_listener(listener: TcpListener, queue: Queue, ctx: CtxSlot, events: Arc<EventLog>) {
     let spawned = std::thread::Builder::new().name("figcraft-control".into()).spawn(move || {
         let mut workers = Vec::new();
         for stream in accepted(listener.incoming(), || std::thread::sleep(ACCEPT_RETRY)) {
@@ -122,6 +127,16 @@ pub fn start(port: u16, busy: Duration, queue: Queue, ctx: CtxSlot, events: Arc<
     if let Err(e) = spawned {
         log::error!("control server thread: {e}");
     }
+}
+
+/// brian-local: the AI Assistant pane's channel, on a port the system picks on 127.0.0.1, its
+/// requests going to the app's queue like `--control`'s (`figcraft-cli mcp --attach <port>`).
+/// None when it can't listen.
+pub fn start_for_assistant(queue: Queue, ctx: CtxSlot, events: Arc<EventLog>) -> Option<u16> {
+    let listener = TcpListener::bind(("127.0.0.1", 0)).map_err(|e| log::error!("assistant channel: couldn't listen: {e}")).ok()?;
+    let port = listener.local_addr().ok()?.port();
+    serve_listener(listener, queue, ctx, events);
+    Some(port)
 }
 
 /// The connections `incoming` accepts, calling `wait` after each failed accept.

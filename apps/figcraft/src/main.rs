@@ -81,6 +81,8 @@ impl eframe::App for App {
         }
         let title = with_app(|fig| {
             control_server::drain_queue(&self.queue, &mut fig.control_queue);
+            // Open from the start and listed for the other Craft apps (once).
+            fig.assistant.share(ctx);
             // Phase-safe background work: control queues, autosave/recovery deadlines, live polling.
             // It runs on logic-only callbacks too, so it never reads UI input.
             figcraft_ui_egui::windows::guard(fig, ctx, |fig| fig.background_tick(ctx));
@@ -244,6 +246,15 @@ fn main() -> eframe::Result {
     let queue: Arc<Mutex<Vec<ControlRequest>>> = Arc::new(Mutex::new(Vec::new()));
     if let Some(p) = port {
         control_server::start(p, graphics::port_wait(), queue.clone(), ctx_slot.clone(), fig.session.events.clone());
+    }
+    // brian-local: the AI Assistant pane opens a channel of its own (its requests join the same
+    // queue), and each file's conversation is remembered in the folder all the Craft apps share.
+    fig.assistant.use_memory(figcraft_ui_egui::assistant::Store::shared());
+    {
+        let (q, slot, events) = (queue.clone(), ctx_slot.clone(), fig.session.events.clone());
+        fig.assistant.starter = Some(Box::new(move |_ctx| {
+            control_server::start_for_assistant(q.clone(), slot.clone(), events.clone()).map(|port| (port, std::sync::mpsc::channel().1))
+        }));
     }
     let icon = services::window_icon();
     // The app id is the Wayland app_id and the X11 window class on Linux: the desktop entry's name

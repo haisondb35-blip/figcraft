@@ -109,6 +109,8 @@ pub static MENU: &[MenuItem] = &[
     m!("View", "Full screen", "view.fullscreen"),
     m!("View/Panels", "Reset panel widths", "view.panelWidths"),
     m!("View/Panels", "Layers", "view.layers"),
+    // brian-local: the AI Assistant pane (Claude or ChatGPT on the open design).
+    m!("View/Panels", "AI Assistant", "view.assistant"),
     m!("View/Panels", "Assets", "view.assets"),
     m!("View/Panels", "Design", "view.design"),
     m!("View/Panels", "Prototype", "view.prototype"),

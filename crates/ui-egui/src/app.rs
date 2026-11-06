@@ -36,6 +36,8 @@ impl FigApp {
             language: None,
             field_focus: false,
             panels_unsaved: false,
+            assistant: crate::assistant::Assistant::default(),
+            assistant_open: false,
             control_queue: Vec::new(),
             control_input: Vec::new(),
             frame_stats: frame_stats::FrameStats::default(),
@@ -327,6 +329,10 @@ impl FigApp {
                 });
         }
         self.ui.right_panel_rect = None;
+        // The AI Assistant pane, outside the palettes.
+        if self.assistant_open {
+            crate::assistant::side_pane(self, ui);
+        }
         if right_open {
             if !narrow {
                 edges.push(("right", ui.available_rect_before_wrap().max.x - right_w, right_w, -1.0));
