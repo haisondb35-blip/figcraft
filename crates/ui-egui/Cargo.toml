@@ -9,6 +9,8 @@ description = "FigCraft egui frontend (the Figma-style UI: canvas, toolbar, laye
 workspace = true
 
 [dependencies]
+# The synced cloud folder every Craft app shares (crates/craft-sync): iCloud Drive and the others.
+craft-sync = { path = "../craft-sync" }
 craft-ui = { workspace = true }
 figcraft-geom = { workspace = true }
 figcraft-color = { workspace = true }
@@ -40,4 +42,7 @@ wat = { workspace = true }
 egui = { workspace = true, features = ["default_fonts", "monochrome_emoji_fonts"] }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+# The assistant's own-key models (OpenAI-compatible, Gemini, Ollama): the same ureq, features and
+# TLS as craft-update, so nothing new is built.
+ureq = { version = "3.4", default-features = false, features = ["rustls-no-provider", "_ring", "gzip", "platform-verifier"] }
 craft-update = { workspace = true }
