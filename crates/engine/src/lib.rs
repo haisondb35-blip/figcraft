@@ -10,6 +10,7 @@
 #![cfg_attr(test, allow(clippy::disallowed_methods))]
 
 mod assets;
+pub mod assistant_chat;
 mod automation;
 mod boards;
 mod canvas;

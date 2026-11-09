@@ -28,6 +28,8 @@ log = { workspace = true }
 chrono = { workspace = true }
 base64 = { workspace = true }
 image = { workspace = true }
+# The assistant saves its chat inside a .figcraft file (`assistant/embed.rs`).
+zip = { workspace = true }
 egui_extras = { workspace = true }
 web-time = "1.1.0"
 

@@ -90,7 +90,9 @@ impl FileSnapshot {
         let path = self.path.as_deref().ok_or(EngineError::NoDocument)?;
         refuse_dropping_images(ds, path)?;
         refuse_overwriting_changes(ds, path)?;
-        write(path, bytes)?;
+        // Save chat with file: the desktop app's assistant conversation goes into the file.
+        let hooked = crate::assistant_chat::hooked(path, bytes);
+        write(path, hooked.as_deref().unwrap_or(bytes))?;
         ds.note_on_disk();
         // The history or branches may have changed since: then they still count as unsaved.
         if ds.revision == self.revision {
@@ -183,7 +185,8 @@ fn save_to(s: &mut Session, path: Option<String>) -> Result<Value> {
         let name = format!("{}.figcraft", ds.doc.name);
         return Ok(json!({"name": name, "bytes": bytes.len(), "data": base64::engine::general_purpose::STANDARD.encode(&bytes)}));
     };
-    write(&path, &bytes)?;
+    let hooked = crate::assistant_chat::hooked(&path, &bytes);
+    write(&path, hooked.as_deref().unwrap_or(&bytes))?;
     ds.doc = snapshot.doc;
     ds.path = Some(path.clone());
     ds.note_on_disk();

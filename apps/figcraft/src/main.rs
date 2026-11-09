@@ -250,6 +250,11 @@ fn main() -> eframe::Result {
     // brian-local: the AI Assistant pane opens a channel of its own (its requests join the same
     // queue), and each file's conversation is remembered in the folder all the Craft apps share.
     fig.assistant.use_memory(figcraft_ui_egui::assistant::Store::shared());
+    // Save chat with file: a .figcraft file's conversation goes into it as it is saved, and comes
+    // back when it is opened.
+    if fig.assistant.memory.is_some() {
+        figcraft_ui_egui::assistant::embed::install(&mut fig.assistant);
+    }
     {
         let (q, slot, events) = (queue.clone(), ctx_slot.clone(), fig.session.events.clone());
         fig.assistant.starter = Some(Box::new(move |_ctx| {
