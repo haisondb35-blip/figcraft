@@ -1018,7 +1018,7 @@ name = "craft-fig"
 version = "0.1.0"
 source = "git+https://github.com/storytold/craft-libs?rev=d13ac58a15c45d618f25910772502e38c4ce1d4c#d13ac58a15c45d618f25910772502e38c4ce1d4c"
 dependencies = [
- "craft-figma-rest",
+ "craft-figma-rest 0.1.0 (git+https://github.com/storytold/craft-libs?rev=d13ac58a15c45d618f25910772502e38c4ce1d4c)",
  "craft-kiwi",
  "craft-zip 0.1.0 (git+https://github.com/storytold/craft-libs?rev=d13ac58a15c45d618f25910772502e38c4ce1d4c)",
  "flate2",
@@ -1044,6 +1044,16 @@ dependencies = [
 name = "craft-figma-rest"
 version = "0.1.0"
 source = "git+https://github.com/storytold/craft-libs?rev=d13ac58a15c45d618f25910772502e38c4ce1d4c#d13ac58a15c45d618f25910772502e38c4ce1d4c"
+dependencies = [
+ "serde",
+ "serde_json",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "craft-figma-rest"
+version = "0.1.0"
+source = "git+https://github.com/storytold/craft-libs?rev=ff142b3ad58aa7306676749428f4f2f9b277b5dd#ff142b3ad58aa7306676749428f4f2f9b277b5dd"
 dependencies = [
  "serde",
  "serde_json",
@@ -1134,6 +1144,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "craft-penpot"
+version = "0.1.0"
+source = "git+https://github.com/storytold/craft-libs?rev=064afccce82b01cbf85da5e265bcf897553bea2a#064afccce82b01cbf85da5e265bcf897553bea2a"
+dependencies = [
+ "craft-zip 0.1.0 (git+https://github.com/storytold/craft-libs?rev=064afccce82b01cbf85da5e265bcf897553bea2a)",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.21",
+]
+
+[[package]]
 name = "craft-quit"
 version = "0.1.0"
 source = "git+https://github.com/storytold/craft-libs?rev=e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545#e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545"
@@ -1153,6 +1174,18 @@ dependencies = [
  "dirs",
  "serde",
  "toml_edit",
+]
+
+[[package]]
+name = "craft-sketch"
+version = "0.1.0"
+source = "git+https://github.com/storytold/craft-libs?rev=ff142b3ad58aa7306676749428f4f2f9b277b5dd#ff142b3ad58aa7306676749428f4f2f9b277b5dd"
+dependencies = [
+ "craft-figma-rest 0.1.0 (git+https://github.com/storytold/craft-libs?rev=ff142b3ad58aa7306676749428f4f2f9b277b5dd)",
+ "craft-zip 0.1.0 (git+https://github.com/storytold/craft-libs?rev=ff142b3ad58aa7306676749428f4f2f9b277b5dd)",
+ "kurbo",
+ "serde_json",
+ "thiserror 2.0.21",
 ]
 
 [[package]]
@@ -1258,6 +1291,16 @@ dependencies = [
 [[package]]
 name = "craft-zip"
 version = "0.1.0"
+source = "git+https://github.com/storytold/craft-libs?rev=064afccce82b01cbf85da5e265bcf897553bea2a#064afccce82b01cbf85da5e265bcf897553bea2a"
+dependencies = [
+ "flate2",
+ "thiserror 2.0.21",
+ "zip 9.1.1",
+]
+
+[[package]]
+name = "craft-zip"
+version = "0.1.0"
 source = "git+https://github.com/storytold/craft-libs?rev=976eb51c59edb0a37f24105850f52d921c8518ee#976eb51c59edb0a37f24105850f52d921c8518ee"
 dependencies = [
  "flate2",
@@ -1269,6 +1312,16 @@ dependencies = [
 name = "craft-zip"
 version = "0.1.0"
 source = "git+https://github.com/storytold/craft-libs?rev=d13ac58a15c45d618f25910772502e38c4ce1d4c#d13ac58a15c45d618f25910772502e38c4ce1d4c"
+dependencies = [
+ "flate2",
+ "thiserror 2.0.21",
+ "zip 9.1.1",
+]
+
+[[package]]
+name = "craft-zip"
+version = "0.1.0"
+source = "git+https://github.com/storytold/craft-libs?rev=ff142b3ad58aa7306676749428f4f2f9b277b5dd#ff142b3ad58aa7306676749428f4f2f9b277b5dd"
 dependencies = [
  "flate2",
  "thiserror 2.0.21",
@@ -1874,7 +1927,7 @@ checksum = "b97b65636e5b9ef369943878ac74335ba1c55c1cb6adbf1e2c293c624248d693"
 
 [[package]]
 name = "figcraft"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "arboard",
  "craft-menu",
@@ -1907,7 +1960,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-cli"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "clap",
  "clap_complete",
@@ -1925,7 +1978,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-collab"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "base64 0.22.1",
  "chrono",
@@ -1943,7 +1996,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-collab-net"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "base64 0.22.1",
  "figcraft-collab",
@@ -1966,7 +2019,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-color"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "kurbo",
  "serde",
@@ -1975,7 +2028,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-doc"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "figcraft-color",
  "figcraft-geom",
@@ -1988,7 +2041,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-engine"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "base64 0.22.1",
  "craft-docpath",
@@ -2022,11 +2075,13 @@ dependencies = [
 
 [[package]]
 name = "figcraft-format"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "craft-fig",
  "craft-figcraft-format",
- "craft-figma-rest",
+ "craft-figma-rest 0.1.0 (git+https://github.com/storytold/craft-libs?rev=d13ac58a15c45d618f25910772502e38c4ce1d4c)",
+ "craft-penpot",
+ "craft-sketch",
  "figcraft-doc",
  "figcraft-layout",
  "figcraft-pathops",
@@ -2042,7 +2097,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-geom"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "kurbo",
  "serde",
@@ -2050,7 +2105,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-layout"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "figcraft-doc",
  "figcraft-geom",
@@ -2058,7 +2113,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-mcp"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "base64 0.22.1",
  "figcraft-collab-net",
@@ -2074,7 +2129,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-pathops"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "figcraft-doc",
  "figcraft-geom",
@@ -2083,7 +2138,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-pdf"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "figcraft-color",
  "figcraft-doc",
@@ -2100,7 +2155,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-plugin"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "figcraft-color",
  "serde",
@@ -2113,7 +2168,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-render"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "crc32fast",
  "figcraft-color",
@@ -2132,7 +2187,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-server"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "chrono",
  "crc32fast",
@@ -2157,7 +2212,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-svg"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "base64 0.22.1",
  "craft-xml",
@@ -2174,7 +2229,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-text"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "core-text",
  "craft-font-catalog",
@@ -2192,7 +2247,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-ui-egui"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "base64 0.22.1",
  "chrono",
@@ -2223,7 +2278,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-vectordrawable"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "craft-vectordrawable",
  "figcraft-color",
@@ -2238,7 +2293,7 @@ dependencies = [
 
 [[package]]
 name = "figcraft-web"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "base64 0.22.1",
  "craft-web-api",
@@ -6885,7 +6940,7 @@ checksum = "9440ea3e5aeabb0ac63af70daf835274065238cdd0cec83418f417eae38bacee"
 
 [[package]]
 name = "xtask"
-version = "0.18.7"
+version = "0.18.8"
 dependencies = [
  "figcraft-engine",
  "serde_json",
