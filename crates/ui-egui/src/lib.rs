@@ -18,6 +18,7 @@ pub mod a11y;
 pub mod assistant;
 pub mod bidi;
 pub mod canvas;
+pub mod channel;
 pub mod cjk;
 pub mod control;
 pub mod dialogs;
