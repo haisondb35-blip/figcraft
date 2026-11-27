@@ -11,7 +11,14 @@ workspace = true
 [dependencies]
 # The synced cloud folder every Craft app shares (crates/craft-sync): iCloud Drive and the others.
 craft-sync = { path = "../craft-sync" }
+# The UI runtime that hosts this egui UI (`src/framework.rs`) and the framework dialogs, from the
+# one craft-libs revision every craft-libs dependency uses (see the root Cargo.toml).
 craft-ui = { workspace = true }
+craft-host = { workspace = true }
+craft-i18n = { workspace = true }
+craft-keymap = { workspace = true }
+craft-theme = { workspace = true }
+craft-window = { workspace = true }
 figcraft-geom = { workspace = true }
 figcraft-color = { workspace = true }
 figcraft-doc = { workspace = true }
