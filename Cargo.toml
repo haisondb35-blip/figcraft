@@ -82,7 +82,7 @@ craft-gif = { git = "https://github.com/storytold/craft-libs", rev = "8fa4db64a9
 kurbo = { version = "0.13", features = ["serde"] }
 thiserror = "2"
 # Command-line parsing for figcraft-cli (craft-contrib RFC-0012: clap derive, as photocraft does).
-clap = { version = "4", features = ["derive"] }
+clap = { version = "4", features = ["derive", "env"] }
 serde = { version = "1", features = ["derive", "rc"] }
 serde_json = { version = "1", features = ["float_roundtrip"] }
 regex = "1.13"
@@ -114,7 +114,7 @@ icu_segmenter = { version = "2.3", default-features = false, features = ["compil
 # Code export: layer names transliterated into ASCII identifiers (pure Rust data tables, zero
 # dependencies, BSD-3-Clause, no_std so the web build keeps it too).
 deunicode = "1.6"
-linesweeper = "0.4"
+linesweeper = "0.5"
 zip = { version = "2", default-features = false, features = ["deflate"] }
 # `.fig` import: raw deflate chunks (already built for zip) and zstd chunks (pure Rust, MIT, wasm-safe).
 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
@@ -184,6 +184,15 @@ codegen-units = 1
 debug = false
 strip = true
 panic = "abort"
+
+# The rasteriser's loops run for every pixel of the canvas on the page's one thread: built for
+# speed. (The rest stays "z": the whole build at speed is megabytes over the gate.)
+[profile.web-release.package.tiny-skia]
+opt-level = 3
+[profile.web-release.package.tiny-skia-path]
+opt-level = 3
+[profile.web-release.package.figcraft-render]
+opt-level = 3
 
 # Keep the complete egui family and native event bridge on reviewed fork commits.
 [patch.crates-io]

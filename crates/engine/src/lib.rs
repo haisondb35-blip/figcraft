@@ -17,6 +17,7 @@ mod canvas;
 pub mod catalog;
 pub mod cmd;
 mod content;
+mod design;
 mod dev;
 pub mod events;
 mod extensions;
@@ -63,6 +64,7 @@ pub use content::synthetic_ds;
 pub use content::templates;
 pub use content::textfit;
 pub use dev::annotations;
+pub use dev::asset_handoff;
 pub use dev::code_connect;
 pub use dev::codegen;
 pub use dev::component_codegen;
@@ -71,6 +73,7 @@ pub use dev::dev_measurements;
 pub use dev::dev_resources;
 pub use dev::devcompare;
 pub use dev::devinspect;
+pub use dev::responsive;
 pub use dev::tailwind;
 pub use extensions::plugin_directory;
 pub use extensions::plugins;
@@ -106,13 +109,16 @@ use serde_json::{Value, json};
 mod derived;
 mod doc_state;
 mod error;
+mod file_views;
 mod prefs;
+mod reopen;
 mod session;
 mod view_state;
 
 pub use derived::{changed_nodes, normalize};
 pub use doc_state::{DocState, History, HistoryEntry, Interaction, PREVIEW_READ_ONLY, Preedit, TextEdit, VersionPreview};
 pub use error::{EngineError, Result, bad};
+pub use file_views::{FileView, MAX_FILE_VIEWS, PageView};
 pub use prefs::{Clipboard, DefaultProps, MAX_RECENT_ACTIONS, Prefs, UI_SCALE_MAX, UI_SCALE_MIN, UI_SCALE_SIZES, UiRequest, clamp_ui_scale};
 pub use session::Forward;
 pub use view_state::ViewState;
@@ -121,6 +127,8 @@ pub use view_state::ViewState;
 pub struct Session {
     pub docs: Vec<DocState>,
     pub active: usize,
+    /// Explicit file-selection revision; command rollback restores it along with the selection.
+    document_selection_revision: u64,
     pub clipboard: Clipboard,
     /// Edit ▸ Set default properties: what new shapes and text drawn with the tools take.
     pub default_props: DefaultProps,
@@ -195,6 +203,8 @@ mod annotations_tests;
 mod arc_fields_tests;
 #[cfg(test)]
 mod arc_handles_tests;
+#[cfg(test)]
+mod asset_handoff_tests;
 #[cfg(test)]
 mod auto_layout_move_tests;
 #[cfg(test)]
@@ -336,6 +346,8 @@ mod eyedropper_create_tests;
 #[cfg(test)]
 mod eyedropper_image_tests;
 #[cfg(test)]
+mod eyedropper_stroke_tests;
+#[cfg(test)]
 mod facilitate_tests;
 #[cfg(test)]
 mod fig_export_assets_tests;
@@ -438,6 +450,8 @@ mod live_tests;
 #[cfg(test)]
 mod lock_behaviour_tests;
 #[cfg(test)]
+mod locked_ratio_layout_tests;
+#[cfg(test)]
 mod marquee_behaviour_tests;
 #[cfg(test)]
 mod mask_tests;
@@ -466,6 +480,8 @@ mod open_issues_tests;
 #[cfg(test)]
 mod outline_options_tests;
 #[cfg(test)]
+mod page_background_variable_tests;
+#[cfg(test)]
 mod page_clipboard_tests;
 #[cfg(test)]
 mod page_copy_navigation_tests;
@@ -483,6 +499,8 @@ mod paint_tests;
 mod panels_behaviour_tests;
 #[cfg(test)]
 mod paste_missing_image_tests;
+#[cfg(test)]
+mod paste_over_tests;
 #[cfg(test)]
 mod paste_sibling_tests;
 #[cfg(test)]
@@ -544,6 +562,10 @@ mod proto_run_tests;
 #[cfg(test)]
 mod proto_tail_tests;
 #[cfg(test)]
+mod reopen_tests;
+#[cfg(test)]
+mod responsive_tests;
+#[cfg(test)]
 mod rest_slot_tests;
 #[cfg(test)]
 mod retained_walk_tests;
@@ -566,6 +588,8 @@ mod scaled_instance_tests;
 #[cfg(test)]
 mod section_contents_tests;
 #[cfg(test)]
+mod section_marquee_tests;
+#[cfg(test)]
 mod section_tests;
 #[cfg(test)]
 mod select_area_tests;
@@ -581,6 +605,8 @@ mod shapebuilder_strokes_tests;
 mod shapebuilder_tests;
 #[cfg(test)]
 mod shapes_behaviour_tests;
+#[cfg(test)]
+mod shift_double_click_tests;
 #[cfg(test)]
 mod shortcut_parity_tests;
 #[cfg(test)]
@@ -619,6 +645,8 @@ mod text_metrics_local_tests;
 mod text_motion_tests;
 #[cfg(test)]
 mod text_style_picker_tests;
+#[cfg(test)]
+mod text_tab_tests;
 #[cfg(test)]
 mod text_tail_tests;
 #[cfg(test)]
@@ -689,7 +717,11 @@ mod widget_shapes_tests;
 mod widgets_tests;
 
 #[cfg(test)]
+mod export_bounds_tests;
+#[cfg(test)]
 mod page_view_tests;
+#[cfg(test)]
+mod paste_properties_tests;
 #[cfg(test)]
 mod selection_reorder_tests;
 #[cfg(test)]
